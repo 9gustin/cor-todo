@@ -1,8 +1,8 @@
-import clsx from "clsx";
 import { FC } from "react";
 import { Icon } from "../Icon";
 import { TodoItemProps } from "./types";
-import { useCustomizables, useTodos } from "../../context";
+import { useTodos } from "../../context";
+import { TodoStatus } from "./TodoStatus";
 
 export const TodoItem: FC<TodoItemProps> = ({
   id,
@@ -11,8 +11,7 @@ export const TodoItem: FC<TodoItemProps> = ({
   priority,
   description,
 }) => {
-  const { deleteTodo, updateStatus } = useTodos();
-  const { status: allStatus } = useCustomizables();
+  const { deleteTodo } = useTodos();
   const handleDelete = () => deleteTodo(id);
 
   return (
@@ -32,26 +31,8 @@ export const TodoItem: FC<TodoItemProps> = ({
       >
         <Icon name="AiFillDelete" />
       </button>
-      <ul className="col-span-12 flex gap-2">
-        {allStatus?.map((s, index) => (
-          <li key={s.id}>
-            <button
-              onClick={() => updateStatus(id, s)}
-              className={clsx(
-                "inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset  ring-gray-500/10",
-                s.id === status.id ? `text-white` : "bg-gray-50 text-gray-600"
-              )}
-              style={{
-                backgroundColor: s.id === status.id ? s.color : undefined,
-              }}
-            >
-              {s.name}
-            </button>
-            {index !== allStatus.length - 1 && " > "}
-          </li>
-        ))}
-      </ul>
-      <p className="col-span-12">{description}</p>
+      <TodoStatus id={id} current={status} className="col-span-12" />
+      {description && <p className="col-span-12">{description}</p>}
     </li>
   );
 };
