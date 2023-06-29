@@ -6,6 +6,7 @@ import { useFilteredTodos } from "../../hooks";
 export const TodoList = () => {
   const { todos, orderBy, toggleFilter, hasFilters, isFilteredBy } =
     useFilteredTodos();
+  console.warn("todos", todos);
 
   return (
     <>
@@ -19,7 +20,7 @@ export const TodoList = () => {
       ) : null}
       {todos.length ? (
         <>
-          <ul className="flex flex-col gap-6 my-6">
+          <ul className="flex flex-col gap-6 my-6" data-testid="all-tasks">
             {todos.map(({ name, description, id, status, priority }) => (
               <TodoItem
                 id={id}

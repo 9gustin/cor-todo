@@ -9,6 +9,7 @@ export const Select: FC<SelectProps> = ({
   selected,
   isLoading,
   className,
+  ariaHidden,
   isRequired,
   lblClassName,
 }) => {
@@ -21,6 +22,7 @@ export const Select: FC<SelectProps> = ({
           onChange={onChange}
           className={className}
           defaultValue={selected}
+          aria-hidden={ariaHidden}
         >
           {options?.map(({ id, name }) => (
             <option value={id} key={id}>

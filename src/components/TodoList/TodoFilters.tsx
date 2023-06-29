@@ -49,8 +49,8 @@ export const TodoFilters: FC<TodoFiltersProps> = ({
 
   return (
     <div className={clsx("flex flex-col gap-4", className)}>
-      <div className="flex flex-col gap-2">
-        <label className="text-xs font-bold text-gray-700">Ordenar por</label>
+      <label className="flex flex-col gap-2">
+        <span className="text-xs font-bold text-gray-700">Ordenar por</span>
         <select
           onChange={orderHandler}
           className="border border-gray-50 rounded-md px-4 py-2"
@@ -61,9 +61,11 @@ export const TodoFilters: FC<TodoFiltersProps> = ({
             </option>
           ))}
         </select>
-      </div>
+      </label>
       <div className="flex gap-2 flex flex-wrap">
-        <label className="w-full text-xs font-bold text-gray-700">Mostrar</label>
+        <label className="w-full text-xs font-bold text-gray-700">
+          Mostrar
+        </label>
         <button
           onClick={buildFilterBy(SHOW_ALL)}
           className={clsx(
@@ -79,6 +81,7 @@ export const TodoFilters: FC<TodoFiltersProps> = ({
           const current = isFilteredBy(key, id);
           return (
             <button
+              key={id}
               onClick={buildFilterBy(key, id)}
               className={clsx(
                 "w-fit inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset  ring-gray-500/10",

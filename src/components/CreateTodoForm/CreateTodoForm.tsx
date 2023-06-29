@@ -38,7 +38,7 @@ export const CreateTodoForm = () => {
     const { status, priority, ...strFields } = formData;
     const matchStatus = allStatus?.find((s) => s.id === status);
     const matchPriority = allPriorities?.find((p) => p.id === priority);
-
+    
     if (!matchStatus || !matchPriority) {
       console.error("Status or priority not found", {
         status: formData.status,

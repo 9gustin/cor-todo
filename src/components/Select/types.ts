@@ -6,6 +6,7 @@ export interface SelectProps {
   className?: string;
   isLoading?: boolean;
   isRequired?: boolean;
+  ariaHidden?: boolean;
   lblClassName?: string;
   options?: Customizable[];
   selected?: Customizable['id'];

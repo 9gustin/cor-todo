@@ -58,6 +58,8 @@ const TodoItemComponent: FC<TodoItemProps> = ({
       <div className="col-span-3 flex gap-2 justify-end">
         {editing ? (
           <button
+            aria-hidden={!editing}
+            aria-label="Guardar"
             type="button"
             onClick={saveChanges}
             className="w-8 h-8 flex items-center justify-center rounded-md bg-green-600 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
@@ -67,7 +69,9 @@ const TodoItemComponent: FC<TodoItemProps> = ({
         ) : (
           <>
             <button
+              aria-hidden={editing}
               type="button"
+              aria-label="Editar"
               onClick={toggleEditing}
               className="w-8 h-8 flex items-center justify-center rounded-md bg-sky-600 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
             >
@@ -75,6 +79,8 @@ const TodoItemComponent: FC<TodoItemProps> = ({
             </button>
             <button
               type="button"
+              aria-hidden={editing}
+              aria-label="Eliminar"
               onClick={handleDelete}
               className="w-8 h-8 flex items-center justify-center rounded-md bg-rose-600 text-sm font-semibold text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
             >
@@ -88,6 +94,7 @@ const TodoItemComponent: FC<TodoItemProps> = ({
           <Select
             label="Prioridad"
             className={inputCn}
+            ariaHidden={!editing}
             selected={priority.id}
             options={allPriorities}
             lblClassName="col-span-12 md:col-span-6"
@@ -98,6 +105,8 @@ const TodoItemComponent: FC<TodoItemProps> = ({
             className={inputCn}
             options={allStatus}
             selected={status.id}
+            ariaHidden={!editing}
+            aria-hidden={!editing}
             onChange={buildChangeHandler()}
             lblClassName="col-span-12 md:col-span-6"
           />
