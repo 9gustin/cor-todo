@@ -1,6 +1,6 @@
 import { useLayoutEffect } from "react";
-import { TodoList, CreateTodoForm } from "./components";
 import { useCustomizables } from "./context";
+import { TodoList, CreateTodoForm } from "./components";
 
 function App() {
   const { loadData } = useCustomizables();

@@ -1,10 +1,10 @@
-import { ChangeEventHandler, FC, memo, useState } from "react";
 import { Icon } from "../Icon";
-import { TodoItemProps } from "./types";
-import { useCustomizables, useTodos } from "../../context";
 import { Select } from "../Select";
-import { inputCn } from "../CreateTodoForm/constants";
+import { TodoItemProps } from "./types";
 import { TodoStatus } from "./TodoStatus";
+import { inputCn } from "../CreateTodoForm/constants";
+import { useCustomizables, useTodos } from "../../context";
+import { ChangeEventHandler, FC, memo, useRef, useState } from "react";
 
 const TodoItemComponent: FC<TodoItemProps> = ({
   id,
@@ -13,23 +13,32 @@ const TodoItemComponent: FC<TodoItemProps> = ({
   priority,
   description,
 }) => {
+  const updates = useRef({
+    status: status,
+    priority: priority,
+  });
   const handleDelete = () => deleteTodo(id);
   const [editing, setEditing] = useState(false);
-  const { deleteTodo, updateStatus, updatePriority } = useTodos();
+  const { deleteTodo, updateTodo } = useTodos();
   const { status: allStatus, priorities: allPriorities } = useCustomizables();
 
   const toggleEditing = () => setEditing((prev) => !prev);
 
+  const saveChanges = () => {
+    updateTodo(id, updates.current);
+    toggleEditing();
+  };
+
   const buildChangeHandler = (
     options = allStatus,
-    update = updateStatus
+    name: "priority" | "status" = "status"
   ): ChangeEventHandler<HTMLSelectElement> => {
     return (event) => {
       const { value } = event.target;
       const matchStatus = options.find(({ id }) => id === value);
 
       if (matchStatus) {
-        update(id, matchStatus);
+        updates.current[name] = matchStatus;
       }
     };
   };
@@ -50,7 +59,7 @@ const TodoItemComponent: FC<TodoItemProps> = ({
         {editing ? (
           <button
             type="button"
-            onClick={toggleEditing}
+            onClick={saveChanges}
             className="w-8 h-8 flex items-center justify-center rounded-md bg-green-600 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
           >
             <Icon name="AiFillCheckCircle" />
@@ -82,7 +91,7 @@ const TodoItemComponent: FC<TodoItemProps> = ({
             selected={priority.id}
             options={allPriorities}
             lblClassName="col-span-12 md:col-span-6"
-            onChange={buildChangeHandler(allPriorities, updatePriority)}
+            onChange={buildChangeHandler(allPriorities, "priority")}
           />
           <Select
             label="Estado"

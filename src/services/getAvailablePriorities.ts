@@ -8,7 +8,7 @@ export const getAvailablePriorities = (): Promise<Customizable[]> => {
           {
             id: 'low',
             name: "Baja",
-            orderPriority: 1,
+            orderPriority: 3,
             color: "#32a852",
             icon: 'AiFillCaretDown',
           },
@@ -22,7 +22,7 @@ export const getAvailablePriorities = (): Promise<Customizable[]> => {
           {
             id: 'high',
             name: "Alta",
-            orderPriority: 3,
+            orderPriority: 1,
             color: "#eb2f2f",
             icon: 'AiFillCaretUp',
           },

@@ -10,6 +10,7 @@ export const getAvailableStatus = (): Promise<Customizable[]> => {
             name: "Nueva",
             orderPriority: 1,
             color: "#e66317",
+            pluralName: "Nuevas",
           },
           {
             id: "in-progress",
@@ -22,6 +23,7 @@ export const getAvailableStatus = (): Promise<Customizable[]> => {
             orderPriority: 3,
             color: "#1cba1f",
             name: "Finalizada",
+            pluralName: "Finalizadas",
           },
         ]),
       500

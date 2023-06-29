@@ -1,13 +1,12 @@
 import { create } from "zustand";
 import { v4 as uuidv4 } from "uuid";
-import { CreateTodo, Customizable, Todo } from "../types";
+import { CreateTodo, Todo } from "../types";
 
 export interface TodosContext {
   todos: Todo[];
   deleteTodo: (id: string) => void;
   addTodo: (todo: CreateTodo) => void;
-  updateStatus: (id: string, status: Customizable) => void;
-  updatePriority: (id: string, priority: Customizable) => void;
+  updateTodo: (id: string, todo: Partial<Todo>) => void;
 }
 
 export const useTodos = create<TodosContext>((set) => ({
@@ -25,16 +24,8 @@ export const useTodos = create<TodosContext>((set) => ({
         },
       ],
     })),
-  updateStatus: (id, status) =>
+  updateTodo: (id, todo) =>
     set((state) => ({
-      todos: state.todos.map((todo) =>
-        todo.id === id ? { ...todo, status } : todo
-      ),
-    })),
-  updatePriority: (id, priority) =>
-    set((state) => ({
-      todos: state.todos.map((todo) =>
-        todo.id === id ? { ...todo, priority } : todo
-      ),
+      todos: state.todos.map((t) => (t.id === id ? { ...t, ...todo } : t)),
     })),
 }));
