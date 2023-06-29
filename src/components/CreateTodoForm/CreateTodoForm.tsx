@@ -1,11 +1,11 @@
 import { Label } from "../Label";
 import { Select } from "../Select";
 import { inputCn } from "./constants";
-import { useCustomizables, useTodos } from "../../context";
 import { useForm } from "react-hook-form";
 import { SectionTitle } from "../SectionTitle";
-import { ChangeEventHandler, useEffect } from "react";
+import { useCustomizables, useTodos } from "../../context";
 import { AvailableFields, CreateTodoFormData } from "./types";
+import { ChangeEventHandler, useCallback, useEffect } from "react";
 
 export const CreateTodoForm = () => {
   const { addTodo } = useTodos();
@@ -28,6 +28,12 @@ export const CreateTodoForm = () => {
     },
   });
 
+  const resetForm = useCallback(() => {
+    reset();
+    setValue("status", statusDefault);
+    setValue("priority", priorityDefault);
+  }, [priorityDefault, reset, setValue, statusDefault]);
+
   const onSubmit = (formData: CreateTodoFormData) => {
     const { status, priority, ...strFields } = formData;
     const matchStatus = allStatus?.find((s) => s.id === status);
@@ -46,7 +52,7 @@ export const CreateTodoForm = () => {
       status: matchStatus,
       priority: matchPriority,
     });
-    reset();
+    resetForm();
   };
 
   const buildOnChange =
@@ -55,9 +61,8 @@ export const CreateTodoForm = () => {
       setValue(name, event.target.value);
 
   useEffect(() => {
-    setValue("priority", priorityDefault);
-    setValue("status", statusDefault);
-  }, [priorityDefault, setValue, statusDefault]);
+    resetForm();
+  }, [priorityDefault, resetForm, statusDefault]);
 
   return (
     <>

@@ -6,10 +6,11 @@ export const Label: FC<LabelProps> = ({
   name,
   children,
   hasError,
+  className,
   isRequired,
 }) => {
   return (
-    <label className="block">
+    <label className={clsx("block", className)}>
       <span
         className={clsx(
           "after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700",

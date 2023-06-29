@@ -7,6 +7,7 @@ export interface TodosContext {
   deleteTodo: (id: string) => void;
   addTodo: (todo: CreateTodo) => void;
   updateStatus: (id: string, status: Customizable) => void;
+  updatePriority: (id: string, priority: Customizable) => void;
 }
 
 export const useTodos = create<TodosContext>((set) => ({
@@ -28,6 +29,12 @@ export const useTodos = create<TodosContext>((set) => ({
     set((state) => ({
       todos: state.todos.map((todo) =>
         todo.id === id ? { ...todo, status } : todo
+      ),
+    })),
+  updatePriority: (id, priority) =>
+    set((state) => ({
+      todos: state.todos.map((todo) =>
+        todo.id === id ? { ...todo, priority } : todo
       ),
     })),
 }));

@@ -6,6 +6,8 @@ export interface SelectProps {
   className?: string;
   isLoading?: boolean;
   isRequired?: boolean;
+  lblClassName?: string;
   options?: Customizable[];
+  selected?: Customizable['id'];
   onChange?: ChangeEventHandler<HTMLSelectElement>;
 }
