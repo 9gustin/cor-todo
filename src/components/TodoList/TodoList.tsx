@@ -6,7 +6,6 @@ import { useFilteredTodos } from "../../hooks";
 export const TodoList = () => {
   const { todos, orderBy, toggleFilter, hasFilters, isFilteredBy } =
     useFilteredTodos();
-  console.warn("todos", todos);
 
   return (
     <>
